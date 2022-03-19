@@ -4,14 +4,15 @@ const SortPopup = React.memo(function SortPopup({items, activeSortType, onClickS
 
   const [visiblePopup, setVisiblePopup] = useState(false);
   const sortRef = useRef();
-  const activeLabel = items.find(obj => obj.type === activeSortType).name;
+  const activeLabel = items.find((obj) => obj.type === activeSortType).name;
   
   const toggleVisiblePopup = () => {
     setVisiblePopup(!visiblePopup);
   };
 
-  const handleOutSideClick = (e) => {
-    if (!e.path.includes(sortRef.current)) {
+  const handleOutSideClick = (event) => {
+    const path = event.path || (event.composedPath && event.composedPath());
+    if (!path.includes(sortRef.current)) {
       setVisiblePopup(false);
     }
   };
